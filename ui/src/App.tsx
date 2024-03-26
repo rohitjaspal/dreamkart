@@ -5,7 +5,7 @@ import Signup from './components/signup';
 import Products from './components/products';
 
 
-function App() {
+function App() {   
   return (
     <div className="App">
       <PrimeReactProvider>
