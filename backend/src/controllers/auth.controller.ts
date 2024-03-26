@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user.model'
 import { generateToken } from '../services/token.service'
+const bcrypt =  require("bcryptjs");
 
 interface RegisterUserPayload { firstName: string, lastName: string, email: string, password: string }
 
@@ -16,12 +17,17 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
                 success: false
             })
         }
+
         //TODO: Implement hashing of password
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password , saltRounds);
+
+
         const newUser = new UserModel({
             firstName,
             lastName,
             email,
-            password
+            password: hashedPassword
         })
 
         await newUser.save()
@@ -55,6 +61,14 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         }
 
         //TODO: check hash password comparison
+        const validate = bcrypt.compare(password , user.password );
+
+        if(!validate){
+            return res.status(403)
+            .json({
+                message: "wrong password! try again.."
+            })
+        }
 
         const token = await generateToken(user)
 
