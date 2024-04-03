@@ -10,11 +10,7 @@ function App() {
   return (
     <div className="App">
       <PrimeReactProvider>
-        <Routess>
-        {/* <Login/>
-         <Products/>
-          <Signup/>  */}
-        </Routess>
+        <Routess />
       </PrimeReactProvider>
     </div>
   );
