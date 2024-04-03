@@ -1,17 +1,20 @@
 import { PrimeReactProvider } from 'primereact/api';
 import './App.css';
-import Login from './components/login'
-import Signup from './components/signup';
-import Products from './components/products';
+import Routess from './routes';
+// import Login from './components/login'
+// import Products from './components/products';
+// import Signup from './components/signup';
 
 
 function App() {   
   return (
     <div className="App">
       <PrimeReactProvider>
-        <Login/>
-        <Products/>
-        <Signup/>
+        <Routess>
+        {/* <Login/>
+         <Products/>
+          <Signup/>  */}
+        </Routess>
       </PrimeReactProvider>
     </div>
   );

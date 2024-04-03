@@ -1,9 +1,10 @@
-import React, { FormEvent, useState } from 'react';
-import { useForm, Controller }  from 'react-hook-form';
+import React, { useState } from 'react';
+//import { useForm, Controller }  from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import axios from 'axios';
 import { environment } from '../environment';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [email , setEmail] = useState('');
@@ -15,7 +16,9 @@ const onsubmit = async(event:React.FormEvent) => {
   console.log(event);
     const result = await axios.post(environment.baseURL + '/auth/login' , {})
       console.log(result);
-    
+      const {data } = result;
+      if(data && data.length > 0) localStorage.setItem('usertoken' , data.token);
+      <Navigate to ='/products' replace/>
 }
 
   return (

@@ -30,7 +30,7 @@ function products() {
         setProducts(products);
       }
     });
-  }, []);
+  },[products]);
 
   // const getProducts = async () => {
   //   const products = await axios.get(`${environment.baseURL}/product`)

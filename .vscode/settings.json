@@ -5,7 +5,9 @@
         "primeflex",
         "primeicons",
         "primereact",
+        "Routess",
         "signup",
-        "TTFB"
+        "TTFB",
+        "usertoken"
     ]
 }
