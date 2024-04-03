@@ -1,3 +1,4 @@
+import "./products.css";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { environment } from "../environment";
@@ -16,45 +17,42 @@ function products() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [products, setProducts] = useState<Product[]>([]);
 
-  // useEffect( async() => {
-  //   const res =  await axios.get(`${environment.baseURL}/product`)
-  //   console.log(res)
-  // }, []);
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    // getProducts()
-    console.log("Hi");
-    axios.get(`${environment.baseURL}/product`).then((res) => {
-      if (res.data) {
-        setProducts(products);
-      }
-    });
-  },[products]);
+    getProducts();
+  }, []);
 
-  // const getProducts = async () => {
-  //   const products = await axios.get(`${environment.baseURL}/product`)
-  //   return products.data
-  // }
+  const getProducts = async () => {
+    try {
+      const result = await axios.get(`${environment.baseURL}/product`);
+      if (result.status === 200) {
+        setProducts([...result.data.data]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <div>
-      <h1>products List</h1>
-      {
-        products.map((p) => {
-          return (
-            <div>
-               <h3>{p._id}</h3>
-               <h3>{p.title}</h3>
-               <h3>{p.description}</h3>
-               <h3>{p.quantity}</h3>
-               <h3>{p.updatedAt}</h3>
-               <h3>{p.createdAt}</h3>
-               <img src={p.imageUrl} alt="" />
+    <div className="container">
+      {products.map((product) => {
+        return (
+          <div className="product-card">
+            <div
+              className="product-image"
+              style={{ backgroundImage: `url(${product.imageUrl})` }}
+            ></div>
+
+            <div className="product-info">
+              <div className="product-title">{product.title}</div>
+              <div className="product-description">{product.description}</div>
+              <div className="product-quantity">
+                Quantity {product.quantity}
+              </div>
             </div>
-          )
-        })
-      }
+          </div>
+        );
+      })}
     </div>
   );
 }
