@@ -1,5 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-//import { useForm, Controller }  from 'react-hook-form';
+import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import '../App.css';
@@ -13,15 +12,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
-  //   if(event)
-  //   setEmail(event.target.value);
-  //   //setEmail(event.target);
-  // }
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("Hiii" , event);
     event.preventDefault()
-    console.log(email, password);
+    console.log({email, password});
     try {
       const result = await axios.post(`${environment.baseURL}/auth/login`, { email, password })
       if (result.status === 200) {
