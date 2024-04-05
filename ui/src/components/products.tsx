@@ -1,6 +1,6 @@
 import "./products.css";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { environment } from "../environment";
 
 export interface Product {
@@ -16,11 +16,17 @@ export interface Product {
 function products() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [products, setProducts] = useState<Product[]>([]);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [count, setCount] = useState(0);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    getProducts();
+    getProducts();  
   }, []);
+// eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    console.log('rohit' , count);  
+  }, [count]);
 
   const getProducts = async () => {
     try {
@@ -35,9 +41,17 @@ function products() {
 
   return (
     <div className="container">
-      {products.map((product) => {
+      <button onClick={() => setCount(count + 1)}>
+        Count {count}
+      </button>
+
+
+
+
+
+      {products.map((product , index) => {
         return (
-          <div className="product-card">
+          <div className="product-card" key={index}>
             <div
               className="product-image"
               style={{ backgroundImage: `url(${product.imageUrl})` }}
